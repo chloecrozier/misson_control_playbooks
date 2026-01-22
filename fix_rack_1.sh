@@ -3,7 +3,6 @@ set -e
 
 SCRIPT_PATH="/root/collect_rack_power.py"
 
-# Kill the dangerous pod first
 kubectl delete pod dangerous-running-job || true
 
 cat > "${SCRIPT_PATH}" << 'EOF'
