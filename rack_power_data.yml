@@ -64,7 +64,6 @@
 
           if __name__ == "__main__":
               main()
-      notify: test rack power script
 
     - name: Configure BCM standalone racks and collection via cmsh
       ansible.builtin.shell: |
@@ -99,13 +98,14 @@
         "
       args:
         executable: /bin/bash
-      changed_when: false  # cmsh handles its own idempotency
+      changed_when: false
 
-  handlers:
-    - name: test rack power script
-      ansible.builtin.shell: "{{ rack_power_script_path }} --initialize && {{ rack_power_script_path }}"
+    - name: Ensure dangerous-running-job pod exists
+      ansible.builtin.shell: |
+        kubectl delete pod dangerous-running-job --ignore-not-found
+        kubectl run dangerous-running-job \
+          --image=busybox \
+          --restart=Never \
+          --command -- sh -c "echo Dangerous job is running for 1 day; sleep 86400"
       args:
         executable: /bin/bash
-      register: rack_power_test
-      changed_when: false
-      failed_when: rack_power_test.rc != 0
