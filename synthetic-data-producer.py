@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
 Synthetic data producer for monitoring metrics.
-
-Setup command (run in cmsh):
-    cmsh -c "monitoring; setup; use AggregateNode; set excludeCategories dgx-gb200; commit"
 """
 import json
 import random
