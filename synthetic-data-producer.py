@@ -127,14 +127,14 @@ def sample():
             {"metric": "MemoryUsed", "entity": node, "value": random.uniform(1e9, 8e9)},
         ])
 
-    # k8s-worker-01 specific - report as actual percentages (30.0-80.0) not decimals
+    # k8s-worker-01 specific - use decimals (0.0-1.0) for utilization to avoid 7000%+ display
     metrics.append({"metric": "gpu_power_usage", "parameter": "total", "entity": "k8s-worker-01", "value": random.uniform(200.0, 350.0)})
-    metrics.append({"metric": "gpu_utilization", "parameter": "average", "entity": "k8s-worker-01", "value": random.uniform(30.0, 80.0)})
-    metrics.append({"metric": "gpu_mem_utilization", "parameter": "average", "entity": "k8s-worker-01", "value": random.uniform(40.0, 85.0)})
+    metrics.append({"metric": "gpu_utilization", "parameter": "average", "entity": "k8s-worker-01", "value": random.uniform(0.30, 0.80)})
+    metrics.append({"metric": "gpu_mem_utilization", "parameter": "average", "entity": "k8s-worker-01", "value": random.uniform(0.40, 0.85)})
     for gpu_id in range(4):
         metrics.append({"metric": "gpu_memory", "parameter": f"gpu{gpu_id}", "entity": "k8s-worker-01", "value": random.uniform(8e9, 14e9)})
-        metrics.append({"metric": "gpu_utilization", "parameter": f"gpu{gpu_id}", "entity": "k8s-worker-01", "value": random.uniform(25.0, 85.0)})
-        metrics.append({"metric": "gpu_mem_utilization", "parameter": f"gpu{gpu_id}", "entity": "k8s-worker-01", "value": random.uniform(35.0, 90.0)})
+        metrics.append({"metric": "gpu_utilization", "parameter": f"gpu{gpu_id}", "entity": "k8s-worker-01", "value": random.uniform(0.25, 0.85)})
+        metrics.append({"metric": "gpu_mem_utilization", "parameter": f"gpu{gpu_id}", "entity": "k8s-worker-01", "value": random.uniform(0.35, 0.90)})
     return metrics
 
 
