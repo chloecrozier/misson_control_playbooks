@@ -11,11 +11,7 @@ import sys
 
 RACKS = ["A05", "A06", "A07"]
 K8S_NODES = ["k8s-worker-01", "k8s-control-plane-01", "k8s-control-plane-02", "k8s-control-plane-03"]
-INFRA_NODES = [
-    "a09-p1-ibleaf-04-04", "a10-p1-ibspine-01", "a10-p1-ibspine-02", "a10-p1-ibspine-03",
-    "a10-p1-ibspine-04", "a10-p1-oob-01", "b03-p1-btor-02", "b03-p1-ftor-02",
-    "b03-p1-ftor-03", "b04-p1-oob-01"
-]
+INFRA_NODES = ["a09-p1-ibleaf-04-04", "a10-p1-ibspine-01", "a10-p1-ibspine-02", "a10-p1-ibspine-03"]
 
 RACK_CONFIG = {
     "A05": {
