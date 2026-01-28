@@ -1,0 +1,67 @@
+Measurable                 Parameter    Type         Value      Age        State      Info             
+-------------------------- ------------ ------------ ---------- ---------- ---------- -----------------
+CoresDown                               Total        0          3.31s                                  
+CoresTotal                              Total        0          3.31s                                  
+CoresUp                                 Total        0          3.31s                                  
+DPUNodesClosed                          Total        0          3.31s                                  
+DPUNodesDown                            Total        0          3.31s                                  
+DPUNodesTotal                           Total        0          3.31s                                  
+DPUNodesUp                              Total        0          3.31s                                  
+DevicesClosed                           Total        0          3.31s                                  
+DevicesDown                             Total        0          3.31s                                  
+DevicesTotal                            Total        0          3.31s                                  
+DevicesUp                               Total        0          3.31s                                  
+DevicesWithLeaks                        Total        0          3.31s                                  
+FPGAsDown                               Total        0          3.31s                                  
+FPGAsTotal                              Total        0          3.31s                                  
+FPGAsUp                                 Total        0          3.31s                                  
+GPUsDown                                Total        0          3.31s                                  
+GPUsTotal                               Total        0          3.31s                                  
+GPUsUp                                  Total        0          3.31s                                  
+LiteNodesClosed                         Total        0          3.31s                                  
+LiteNodesDown                           Total        0          3.31s                                  
+LiteNodesTotal                          Total        0          3.31s                                  
+LiteNodesUp                             Total        0          3.31s                                  
+ManagedServicesOk          fail         Total        0          1m 3s                                  
+ManagedServicesOk          good         Total        0.0%       1m 3s                                  
+ManagedServicesOk          pass         Total        0          1m 3s                                  
+ManagedServicesOk          total        Total        0          1m 3s                                  
+ManagedServicesOk          unknown      Total        0          1m 3s                                  
+ManagedSwitchesClosed                   Total        0          3.31s                                  
+ManagedSwitchesDown                     Total        3          3.31s                                  
+ManagedSwitchesTotal                    Total        3          3.31s                                  
+ManagedSwitchesUp                       Total        0          3.31s                                  
+NMXController                           NMX          FAIL       3.31s                 No active switch 
+NVLinkSwitchesClosed                    Total        0          3.31s                                  
+NVLinkSwitchesDown                      Total        9          3.31s                                  
+NVLinkSwitchesTotal                     Total        9          3.31s                                  
+NVLinkSwitchesUp                        Total        0          3.31s                                  
+NetworkUtilization                      Network      no data    3.31s      filtered                    
+NodesClosed                             Total        0          3.31s                                  
+NodesDown                               Total        18         3.31s                                  
+NodesTotal                              Total        18         3.31s                                  
+NodesUp                                 Total        0          3.31s                                  
+OccupationRate                          Total        0.0%       1m 3s                                  
+PowerShelvesClosed                      Total        0          3.31s                                  
+PowerShelvesDown                        Total        8          3.31s                                  
+PowerShelvesTotal                       Total        8          3.31s                                  
+PowerShelvesUp                          Total        0          3.31s 
+TotalCPUIdle                            Total        0.0%       1m 3s                                  
+TotalCPUPowerUsage                      Total        0 W        1m 3s                                  
+TotalCPUSystem                          Total        0.0%       1m 3s                                  
+TotalCPUTemperature                     Total        0 C        1m 3s                                  
+TotalCPUUser                            Total        0.0%       1m 3s                                  
+TotalCPUUtilization                     Total        0.0%       1m 3s                                  
+TotalGPUMemoryUtilization               Total        0.0%       1m 3s                                  
+TotalGPUNvlinkBandwidth                 Total        0 B/s      1m 3s                                  
+TotalGPUPowerUsage                      Total        0 W        1m 3s                                  
+TotalGPUTemperature                     Total        0 C        1m 3s                                  
+TotalGPUUtilization                     Total        0.0%       1m 3s                                  
+TotalMemory                             Total        0 B        1m 3s                                  
+TotalMemoryFree                         Total        0 B        1m 3s                                  
+TotalMemoryUsed                         Total        0 B        1m 3s                                  
+TotalMemoryUtilization                  Total        0.0%       1m 3s                                  
+TotalNodePowerUsage                     Total        134 KW     3.31s                                  
+TotalSwap                               Total        0 B        1m 3s                                  
+TotalSwapFree                           Total        0 B        1m 3s                                  
+TotalSwapUsed                           Total        0 B        1m 3s
