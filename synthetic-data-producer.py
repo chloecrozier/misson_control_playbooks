@@ -36,3 +36,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+cmsh -c "monitoring; setup; use AggregateNode; set excludeCategories dgx-gb200; commit"
