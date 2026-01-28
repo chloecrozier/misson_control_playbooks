@@ -1,0 +1,145 @@
+---
+- name: Deploy Synthetic Data Producer for BCM Monitoring
+  hosts: bcm
+  become: yes
+  vars:
+    script_path: /cm/shared/apps/data-producer
+    script_name: synthetic-data-producer.py
+    collector_name: synthetic-data-collector
+    
+  tasks:
+    - name: Ensure data producer directory exists
+      file:
+        path: "{{ script_path }}"
+        state: directory
+        mode: '0755'
+      tags: [setup]
+
+    - name: Deploy synthetic data producer script
+      copy:
+        src: "{{ script_name }}"
+        dest: "{{ script_path }}/{{ script_name }}"
+        mode: '0755'
+        owner: root
+        group: root
+      tags: [deploy]
+
+    - name: Verify script runs without errors
+      command: "python3 {{ script_path }}/{{ script_name }} --initialize"
+      register: script_test
+      changed_when: false
+      failed_when: script_test.rc != 0
+      tags: [validate]
+
+    - name: Display script validation output
+      debug:
+        msg: "Script validation successful - {{ script_test.stdout | from_json | length }} metrics registered"
+      when: script_test.rc == 0
+      tags: [validate]
+
+    - name: Check if monitoring collector exists
+      shell: |
+        cmsh -c "monitoring; setup; list" | grep -q "{{ collector_name }}"
+      register: collector_exists
+      changed_when: false
+      failed_when: false
+      tags: [configure]
+
+    - name: Create monitoring collector (if not exists)
+      shell: |
+        cmsh -c "monitoring; setup; add collection {{ collector_name }}; commit"
+      when: collector_exists.rc != 0
+      tags: [configure]
+
+    - name: Configure monitoring collector
+      shell: |
+        cmsh -c "monitoring; setup; use {{ collector_name }}; \
+          set script {{ script_path }}/{{ script_name }}; \
+          set format JSON; \
+          set interval 30s; \
+          set timeout 5s; \
+          set disabled no; \
+          commit"
+      tags: [configure]
+
+    - name: Disable collector before reinitialize
+      shell: |
+        cmsh -c "monitoring; setup; use {{ collector_name }}; set disabled true; commit"
+      tags: [restart]
+
+    - name: Wait for collector to stop
+      pause:
+        seconds: 3
+      tags: [restart]
+
+    - name: Enable and reinitialize collector
+      shell: |
+        cmsh -c "monitoring; setup; use {{ collector_name }}; \
+          set disabled false; \
+          commit; \
+          reinitialize; \
+          commit"
+      tags: [restart]
+
+    - name: Wait for first sample collection
+      pause:
+        seconds: 35
+        prompt: "Waiting for first monitoring sample to be collected..."
+      tags: [validate]
+
+    - name: Verify rack A05 has monitoring data
+      shell: |
+        cmsh -c "device; use A05; latestmonitoringdata -v" | head -10
+      register: rack_data
+      changed_when: false
+      tags: [validate]
+
+    - name: Display rack monitoring data
+      debug:
+        msg: "{{ rack_data.stdout_lines }}"
+      tags: [validate]
+
+    - name: Verify k8s-worker-01 GPU metrics
+      shell: |
+        cmsh -c "device; use k8s-worker-01; latestmonitoringdata -v" | grep -E "gpu_utilization|gpu_mem_utilization"
+      register: gpu_data
+      changed_when: false
+      failed_when: false
+      tags: [validate]
+
+    - name: Display GPU metrics
+      debug:
+        msg: "{{ gpu_data.stdout_lines }}"
+      when: gpu_data.stdout_lines | length > 0
+      tags: [validate]
+
+    - name: Get collector status
+      shell: |
+        cmsh -c "monitoring; setup; use {{ collector_name }}; show" | grep -E "Name|Disabled|Interval|Script"
+      register: collector_status
+      changed_when: false
+      tags: [validate]
+
+    - name: Display collector status
+      debug:
+        msg: "{{ collector_status.stdout_lines }}"
+      tags: [validate]
+
+    - name: Summary
+      debug:
+        msg: |
+          ========================================
+          Deployment Complete!
+          ========================================
+          Script: {{ script_path }}/{{ script_name }}
+          Collector: {{ collector_name }}
+          Status: Active
+          
+          Monitoring entities:
+          - 3 Racks (A05, A06, A07)
+          - 4 K8S Nodes (with GPU metrics)
+          - 4 Infrastructure Nodes
+          
+          Sample interval: 30 seconds
+          ========================================
+      tags: [always]

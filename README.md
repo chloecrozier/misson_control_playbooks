@@ -1,3 +1,3 @@
-# Misson Control Playbooks
+# Synthetic Data Producer for BCM Monitoring
 
-ansible-playbook -i inventory.ini rack_power_data.yml
+Ansible playbook to deploy synthetic monitoring metrics for Bright Cluster Manager. Generates data for 3 racks (A05/A06/A07), 4 K8S nodes with GPU metrics, and 4 infrastructure nodes. Deploy with: `ansible-playbook -i inventory.ini synthetic-data-producer.yml`
